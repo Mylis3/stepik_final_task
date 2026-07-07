@@ -1,5 +1,8 @@
 from .base_page import BasePage
 from .locators_product import ProductPageLocators
+from .base_page import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProductPage(BasePage):
@@ -46,3 +49,11 @@ class ProductPage(BasePage):
 
         assert book_price == cart_price, \
             "Incorrect cart price"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is disappeared, but should not be"
