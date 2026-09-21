@@ -4,6 +4,8 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import math
+from .locators import BasePageLocators
+from .locators import BasketPageLocators
 
 
 class BasePage():
@@ -11,6 +13,14 @@ class BasePage():
         self.browser = browser
         self.url = url
         # self.browser.implicitly_wait(timeout)
+
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def should_be_login_link(self):
+        assert self.is_element_present(
+            *BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
     def open(self):
         self.browser.get(self.url)
@@ -42,6 +52,17 @@ class BasePage():
 
         return True
 
+
+# Метод для перехода на страницу корзины
+
+    def go_to_basket_page(self):
+        WebDriverWait(self.browser, 10).until(
+            EC.element_to_be_clickable(BasketPageLocators.BASKET_LINK)
+        ).click()
+
+    # def go_to_basket_page(self):
+    #     link = self.browser.find_element(*BasketPageLocators.BASKET_LINK)
+    #     link.click()
 
 # метод в тесте для получения проверочного кода:
 
