@@ -29,8 +29,10 @@ class ProductPage(BasePage):
             "'Add to cart' button is disabled"
 
     def should_be_correct_book_name(self):
-        cart_book_name = self.browser.find_element(
-            *ProductPageLocators.CART_BOOK_NAME
+        cart_book_name = WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                ProductPageLocators.CART_BOOK_NAME
+            )
         ).text
         book_name = self.browser.find_element(
             *ProductPageLocators.BOOK_NAME
@@ -40,8 +42,10 @@ class ProductPage(BasePage):
             "Incorrect book name in basket"
 
     def should_be_correct_book_price(self):
-        cart_price = self.browser.find_element(
-            *ProductPageLocators.CART_PRICE
+        cart_price = WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                ProductPageLocators.CART_PRICE
+            )
         ).text
         book_price = self.browser.find_element(
             *ProductPageLocators.BOOK_PRICE
